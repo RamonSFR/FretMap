@@ -30,6 +30,8 @@ const Fretboard = () => {
     'B'
   ]
 
+  const fretMarkers = ['', "•", "","•", "", "•", "", "•", "", "•", "", "", "••", '', "", "•", "", '•', "" ,"•", "", "•", ""]
+
   const findNotesInFrets = (
     initialNote: string,
     numberOfFrets: number,
@@ -61,39 +63,45 @@ const Fretboard = () => {
     <S.Container>
       <S.String>
         {findNotesInFrets('E', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
 
       <S.String>
         {findNotesInFrets('B', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
 
       <S.String>
         {findNotesInFrets('G', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
 
       <S.String>
         {findNotesInFrets('D', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
 
       <S.String>
         {findNotesInFrets('A', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
-      
+
       <S.String>
         {findNotesInFrets('E', 22, true).map((note) => (
-          <li key={note}>{note}</li>
+          <li key={note}><span>{note}</span></li>
         ))}
       </S.String>
+
+      <S.Markers>
+        {fretMarkers.map((marker, index) => (
+          <li key={index}><span>{marker}</span></li>
+        ))}
+      </S.Markers>
     </S.Container>
   )
 }

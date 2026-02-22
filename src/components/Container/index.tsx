@@ -10,6 +10,7 @@ const Container = () => {
         Fret<span>Map</span>
       </S.Title>
       <Fretboard />
+      <button>Change Tuning</button>
     </S.Container>
   )
 }
