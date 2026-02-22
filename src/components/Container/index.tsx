@@ -5,6 +5,7 @@ import Modal from '../Modal'
 import { notesSharps } from '../../utils/music/notes'
 
 import * as S from './styles'
+import Button from '../Button'
 
 const Container = () => {
   const [changeTuning, setChangeTuning] = useState(false)
@@ -16,11 +17,11 @@ const Container = () => {
         Fret<span>Map</span>
       </S.Title>
       <Fretboard tuning={tuning} />
-      <button onClick={() => setChangeTuning(true)}>Change Tuning</button>
+      <Button onClick={() => setChangeTuning(true)}>Change Tuning</Button>
 
       <Modal is_active={changeTuning} onClick={() => setChangeTuning(false)}>
         <>
-          <h3>Change Tuning</h3>
+          <h3>Mudar Afinação</h3>
 
           <select
             name="e"
@@ -136,6 +137,8 @@ const Container = () => {
             ))}
           </select>
         </>
+
+        <Button onClick={() => setChangeTuning(false)}>Fechar</Button>
       </Modal>
     </S.Container>
   )

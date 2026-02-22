@@ -31,4 +31,19 @@ export const ModalContent = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
+
+  select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid ${c.black};
+    border-radius: 4px;
+    background: ${c.white};
+    color: ${c.black};
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: ${c.yellow1};
+    }
+  }
 `
