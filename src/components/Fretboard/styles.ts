@@ -44,8 +44,7 @@ export const String = styled.ul`
 export const Markers = styled.ul`
   display: flex;
   background: ${c.white};
+  font-size: 24px;
+  font-weight: bold;
   justify-content: space-around;
-  li {
-
-  }
 `

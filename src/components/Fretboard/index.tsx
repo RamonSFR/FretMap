@@ -1,36 +1,37 @@
+import { notesFlats, notesSharps } from '../../utils/music/notes'
+
 import * as S from './styles'
 
-const Fretboard = () => {
-  const notesSharps = [
-    'C',
-    'C#',
-    'D',
-    'D#',
-    'E',
-    'F',
-    'F#',
-    'G',
-    'G#',
-    'A',
-    'A#',
-    'B'
-  ]
-  const notesFlats = [
-    'C',
-    'Db',
-    'D',
-    'Eb',
-    'E',
-    'F',
-    'Gb',
-    'G',
-    'Ab',
-    'A',
-    'Bb',
-    'B'
-  ]
+interface Props {
+  tuning?: string[]
+}
 
-  const fretMarkers = ['', "•", "","•", "", "•", "", "•", "", "•", "", "", "••", '', "", "•", "", '•', "" ,"•", "", "•", ""]
+const Fretboard = ({ tuning = ['E', 'B', 'G', 'D', 'A', 'E'] }: Props) => {
+  const fretMarkers = [
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '',
+    '••',
+    '',
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '•',
+    '',
+    '•',
+    ''
+  ]
 
   const findNotesInFrets = (
     initialNote: string,
@@ -61,45 +62,21 @@ const Fretboard = () => {
   console.log(findNotesInFrets('C#', 22, true))
   return (
     <S.Container>
-      <S.String>
-        {findNotesInFrets('E', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
-
-      <S.String>
-        {findNotesInFrets('B', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
-
-      <S.String>
-        {findNotesInFrets('G', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
-
-      <S.String>
-        {findNotesInFrets('D', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
-
-      <S.String>
-        {findNotesInFrets('A', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
-
-      <S.String>
-        {findNotesInFrets('E', 22, true).map((note) => (
-          <li key={note}><span>{note}</span></li>
-        ))}
-      </S.String>
+      {tuning.map((openNote, stringIndex) => (
+        <S.String key={`string-${stringIndex}`}>
+          {findNotesInFrets(openNote, 22, true).map((note, fretIndex) => (
+            <li key={`s${stringIndex}-f${fretIndex}`}>
+              <span>{note}</span>
+            </li>
+          ))}
+        </S.String>
+      ))}
 
       <S.Markers>
         {fretMarkers.map((marker, index) => (
-          <li key={index}><span>{marker}</span></li>
+          <li key={index}>
+            <span>{marker}</span>
+          </li>
         ))}
       </S.Markers>
     </S.Container>
