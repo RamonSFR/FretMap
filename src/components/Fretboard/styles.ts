@@ -3,6 +3,7 @@ import { colors as c, breakpoints as b } from '../../styles/GlobalStyle'
 
 export const Container = styled.div`
   min-width: 800px;
+  overflow: scroll;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
@@ -12,8 +13,20 @@ export const Container = styled.div`
   background-color: #fff8dc;
   margin-bottom: 64px;
 
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @media (max-width: ${b.tablet}) {
     width: 100vw;
+  }
+
+  @media (max-width: ${b.mobile}) {
+    position: relative;
+    left: 0;
+    top: 50%;
   }
 `
 
@@ -55,10 +68,6 @@ export const String = styled.ul`
 
     &:last-child {
       border-right: none;
-    }
-
-    @media (max-width: ${b.mobile}) {
-      padding: 4px 0;
     }
   }
 `
