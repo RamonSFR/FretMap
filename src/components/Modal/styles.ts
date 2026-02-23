@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
-import { colors as c } from '../../styles/GlobalStyle'
+import { colors as c, breakpoints as b } from '../../styles/GlobalStyle'
 
 export const Overlay = styled.div<{ $is_active: boolean }>`
   display: ${(props) => (props.$is_active ? 'flex' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
@@ -46,5 +46,13 @@ export const ModalContent = styled.div`
       outline: none;
       border-color: ${c.yellow1};
     }
+  }
+
+  @media screen and (max-width: ${b.mobile}) {
+    width: 90vw;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `
