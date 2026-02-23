@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors as c } from "../../styles/GlobalStyle";
+import styled from 'styled-components'
+import { colors as c, breakpoints as b } from '../../styles/GlobalStyle'
 
 export const Container = styled.div`
   margin: 32px 0;
@@ -7,6 +7,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: ${b.mobile}) {
+    overflow: scroll;
+  }
 `
 
 export const Title = styled.h1`
@@ -27,7 +31,8 @@ export const buttonsArea = styled.div`
   margin-top: 32px;
   gap: 16px;
 
-  .filter, .useFlats {
+  .filter,
+  .useFlats {
     display: flex;
     justify-content: center;
     align-items: center;

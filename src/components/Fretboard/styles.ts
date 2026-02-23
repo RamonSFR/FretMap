@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { colors as c } from '../../styles/GlobalStyle'
+import { colors as c, breakpoints as b } from '../../styles/GlobalStyle'
 
 export const Container = styled.div`
+  min-width: 800px;
   margin-top: 32px;
   display: flex;
   flex-direction: column;
@@ -10,6 +11,10 @@ export const Container = styled.div`
   border-radius: 6px;
   background-color: #fff8dc;
   margin-bottom: 64px;
+
+  @media (max-width: ${b.tablet}) {
+    width: 100vw;
+  }
 `
 
 export const String = styled.ul`
@@ -32,6 +37,10 @@ export const String = styled.ul`
       background-color: ${c.yellow1};
       border-radius: 50%;
       padding: 4px 8px;
+
+      @media (max-width: ${b.tablet}) {
+        padding: 4px;
+      }
     }
 
     &:first-child {
@@ -46,6 +55,10 @@ export const String = styled.ul`
 
     &:last-child {
       border-right: none;
+    }
+
+    @media (max-width: ${b.mobile}) {
+      padding: 4px 0;
     }
   }
 `

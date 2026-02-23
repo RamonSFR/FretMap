@@ -10,6 +10,11 @@ export const colors = {
   grey: 'rgba(255, 255, 255, 0.27)'
 }
 
+export const breakpoints = {
+  tablet: "1200px",
+  mobile: "1000px"
+}
+
 const GlobalStyle = createGlobalStyle`
 
   * {
