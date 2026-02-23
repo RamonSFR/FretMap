@@ -7,13 +7,15 @@ interface Props {
   filterByScale?: boolean
   scaleType?: string
   scaleRoot?: string
+  useFlats?: boolean
 }
 
 const Fretboard = ({
   tuning = ['E', 'B', 'G', 'D', 'A', 'E'],
   filterByScale = false,
   scaleType = 'major',
-  scaleRoot = 'C'
+  scaleRoot = 'C',
+  useFlats = false
 }: Props) => {
   const fretMarkers = [
     '',
@@ -82,16 +84,34 @@ const Fretboard = ({
     return scale
   }
 
-  const activeScale =
-    scaleType === 'major' && filterByScale
-      ? buildMajorScale(scaleRoot, true)
-      : null
+  const buildMinorScale = (root: string, useSharps = true) => {
+    const notes = useSharps ? notesSharps : notesFlats
+    const rootIdx = notes.indexOf(root)
+    if (rootIdx === -1) return []
+
+    const intervals = [2, 1, 2, 2, 1, 2, 2]
+    const scale: string[] = [notes[rootIdx]]
+    let idx = rootIdx
+    for (const step of intervals.slice(0, 6)) {
+      idx = (idx + step) % notes.length
+      scale.push(notes[idx])
+    }
+    return scale
+  }
+
+  const activeScale = (() => {
+    if (!filterByScale) return null
+    const useSharps = !useFlats
+    if (scaleType === 'major') return buildMajorScale(scaleRoot, useSharps)
+    if (scaleType === 'minor') return buildMinorScale(scaleRoot, useSharps)
+    return null
+  })()
 
   return (
     <S.Container>
       {tuning.map((openNote, stringIndex) => (
         <S.String key={`string-${stringIndex}`}>
-          {findNotesInFrets(openNote, 22, true).map((note, fretIndex) => {
+          {findNotesInFrets(openNote, 22, !useFlats).map((note, fretIndex) => {
             const isWrong = Array.isArray(activeScale)
               ? !activeScale.includes(note)
               : false

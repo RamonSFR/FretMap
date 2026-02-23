@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import Fretboard from '../Fretboard'
 import Modal from '../Modal'
-import { notesSharps } from '../../utils/music/notes'
+import { notesSharps, notesFlats } from '../../utils/music/notes'
 
 import * as S from './styles'
 import Button from '../Button'
@@ -13,6 +13,20 @@ const Container = () => {
   const [filterByScale, setFilterByScale] = useState(false)
   const [scaleType, setScaleType] = useState<string>('major')
   const [scaleRoot, setScaleRoot] = useState<string>(notesSharps[0])
+  const [useFlats, setUseFlats] = useState<boolean>(false)
+
+  const handleUseFlatsChange = (checked: boolean) => {
+    setUseFlats(checked)
+    setScaleRoot((prev) => {
+      const from = checked ? notesSharps : notesFlats
+      const to = checked ? notesFlats : notesSharps
+      const idx = from.indexOf(prev)
+      if (idx !== -1) return to[idx]
+      const idx2 = to.indexOf(prev)
+      if (idx2 !== -1) return to[idx2]
+      return prev
+    })
+  }
 
   return (
     <S.Container>
@@ -24,6 +38,7 @@ const Container = () => {
         filterByScale={filterByScale}
         scaleType={scaleType}
         scaleRoot={scaleRoot}
+        useFlats={useFlats}
       />
       <Button onClick={() => setChangeTuning(true)}>Mudar Afinação</Button>
 
@@ -150,6 +165,14 @@ const Container = () => {
       </Modal>
 
       <S.buttonsArea>
+        <div className="useFlats">
+          <label htmlFor="useFlats">Usar bemóis: </label>
+          <input
+            onChange={(e) => handleUseFlatsChange(e.target.checked)}
+            id="useFlats"
+            type="checkbox"
+          />
+        </div>
         <div className="filter">
           <label htmlFor="scales">Filtrar por escala: </label>
           <input
@@ -180,7 +203,7 @@ const Container = () => {
             value={scaleRoot}
             onChange={(e) => setScaleRoot(e.target.value)}
           >
-            {notesSharps.map((note) => (
+            {(useFlats ? notesFlats : notesSharps).map((note) => (
               <option value={note} key={note}>
                 {note}
               </option>

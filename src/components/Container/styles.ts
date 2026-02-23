@@ -27,7 +27,7 @@ export const buttonsArea = styled.div`
   margin-top: 32px;
   gap: 16px;
 
-  .filter {
+  .filter, .useFlats {
     display: flex;
     justify-content: center;
     align-items: center;
