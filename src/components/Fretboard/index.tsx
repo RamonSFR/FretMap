@@ -105,6 +105,12 @@ const Fretboard = ({
     return major.filter((_, idx) => idx !== 3 && idx !== 6)
   }
 
+  const buildMinorPentatonic = (root: string, useSharps = true) => {
+    const minor = buildMinorScale(root, useSharps)
+    if (!Array.isArray(minor) || minor.length === 0) return []
+    return minor.filter((_, idx) => idx !== 1 && idx !== 5)
+  }
+
   const activeScale = (() => {
     if (!filterByScale) return null
     const useSharps = !useFlats
@@ -112,6 +118,8 @@ const Fretboard = ({
     if (scaleType === 'minor') return buildMinorScale(scaleRoot, useSharps)
     if (scaleType === 'major-pentatonic')
       return buildMajorPentatonic(scaleRoot, useSharps)
+    if (scaleType === 'minor-pentatonic')
+      return buildMinorPentatonic(scaleRoot, useSharps)
     return null
   })()
 
