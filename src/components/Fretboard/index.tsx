@@ -99,11 +99,19 @@ const Fretboard = ({
     return scale
   }
 
+  const buildMajorPentatonic = (root: string, useSharps = true) => {
+    const major = buildMajorScale(root, useSharps)
+    if (!Array.isArray(major) || major.length === 0) return []
+    return major.filter((_, idx) => idx !== 3 && idx !== 6)
+  }
+
   const activeScale = (() => {
     if (!filterByScale) return null
     const useSharps = !useFlats
     if (scaleType === 'major') return buildMajorScale(scaleRoot, useSharps)
     if (scaleType === 'minor') return buildMinorScale(scaleRoot, useSharps)
+    if (scaleType === 'major-pentatonic')
+      return buildMajorPentatonic(scaleRoot, useSharps)
     return null
   })()
 
