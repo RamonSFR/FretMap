@@ -40,6 +40,7 @@ export const ModalContent = styled.div`
     background: ${c.white};
     color: ${c.black};
     font-size: 1rem;
+    cursor: pointer;
 
     &:focus {
       outline: none;

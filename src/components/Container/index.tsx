@@ -10,6 +10,7 @@ import Button from '../Button'
 const Container = () => {
   const [changeTuning, setChangeTuning] = useState(false)
   const [tuning, setTuning] = useState<string[]>(['E', 'B', 'G', 'D', 'A', 'E'])
+  const [filterByScale, setFilterByScale] = useState(false)
 
   return (
     <S.Container>
@@ -17,7 +18,7 @@ const Container = () => {
         Fret<span>Map</span>
       </S.Title>
       <Fretboard tuning={tuning} />
-      <Button onClick={() => setChangeTuning(true)}>Change Tuning</Button>
+      <Button onClick={() => setChangeTuning(true)}>Mudar Afinação</Button>
 
       <Modal is_active={changeTuning} onClick={() => setChangeTuning(false)}>
         <>
@@ -140,6 +141,32 @@ const Container = () => {
 
         <Button onClick={() => setChangeTuning(false)}>Fechar</Button>
       </Modal>
+
+      <S.buttonsArea>
+        <div className='filter'>
+          <label htmlFor="scales">Filtrar por escala: </label>
+          <input
+            onChange={(e) => setFilterByScale(e.target.checked)}
+            id="scales"
+            type="checkbox"
+          />
+        </div>
+        <div className='scale-select'>
+          <select className={filterByScale ? '' : 'disabled'} disabled={!filterByScale} name="" id="">
+            <option value="major">Diatônica Maior</option>
+            <option value="minor">Diatônica Menor</option>
+            <option value="major-pentatonic">Pentatônica Maior</option>
+            <option value="minor-pentatonic">Pentatônica Menor</option>
+          </select>
+          <select className={filterByScale ? '' : 'disabled'} disabled={!filterByScale} name="" id="">
+            {notesSharps.map((note) => (
+              <option value={note} key={note}>
+                {note}
+              </option>
+            ))}
+          </select>
+        </div>
+      </S.buttonsArea>
     </S.Container>
   )
 }

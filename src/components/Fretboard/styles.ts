@@ -22,7 +22,7 @@ export const String = styled.ul`
     justify-content: center;
     align-items: center;
     border-right: 3px solid #838383ff;
-    padding: 8px 12px;
+    padding: 8px 0;
 
     span {
       background-color: ${c.yellow1};
@@ -33,6 +33,11 @@ export const String = styled.ul`
     &:first-child {
       font-weight: bold;
       background-color: ${c.white};
+
+      span {
+        background-color: ${c.black};
+        color: ${c.yellow1};
+      }
     }
 
     &:last-child {

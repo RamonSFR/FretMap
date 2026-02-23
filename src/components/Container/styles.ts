@@ -20,3 +20,43 @@ export const Title = styled.h1`
     text-decoration: underline;
   }
 `
+
+export const buttonsArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 32px;
+  gap: 16px;
+
+  .filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+
+    input {
+      cursor: pointer;
+    }
+  }
+
+  .scale-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    select {
+      background-color: ${c.lightYellow};
+      border: none;
+      outline: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: ${c.darkYellow1};
+      }
+    }
+  }
+`
