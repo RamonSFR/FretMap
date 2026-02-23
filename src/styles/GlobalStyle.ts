@@ -6,7 +6,8 @@ export const colors = {
   lightYellow: '#fcefb4',
   darkYellow1: '#fae588',
   darkYellow2: '#f9dc5c',
-  black: '#333'
+  black: '#333',
+  grey: 'rgba(255, 255, 255, 0.27)'
 }
 
 const GlobalStyle = createGlobalStyle`

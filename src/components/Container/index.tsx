@@ -11,13 +11,20 @@ const Container = () => {
   const [changeTuning, setChangeTuning] = useState(false)
   const [tuning, setTuning] = useState<string[]>(['E', 'B', 'G', 'D', 'A', 'E'])
   const [filterByScale, setFilterByScale] = useState(false)
+  const [scaleType, setScaleType] = useState<string>('major')
+  const [scaleRoot, setScaleRoot] = useState<string>(notesSharps[0])
 
   return (
     <S.Container>
       <S.Title>
         Fret<span>Map</span>
       </S.Title>
-      <Fretboard tuning={tuning} />
+      <Fretboard
+        tuning={tuning}
+        filterByScale={filterByScale}
+        scaleType={scaleType}
+        scaleRoot={scaleRoot}
+      />
       <Button onClick={() => setChangeTuning(true)}>Mudar Afinação</Button>
 
       <Modal is_active={changeTuning} onClick={() => setChangeTuning(false)}>
@@ -143,7 +150,7 @@ const Container = () => {
       </Modal>
 
       <S.buttonsArea>
-        <div className='filter'>
+        <div className="filter">
           <label htmlFor="scales">Filtrar por escala: </label>
           <input
             onChange={(e) => setFilterByScale(e.target.checked)}
@@ -151,14 +158,28 @@ const Container = () => {
             type="checkbox"
           />
         </div>
-        <div className='scale-select'>
-          <select className={filterByScale ? '' : 'disabled'} disabled={!filterByScale} name="" id="">
+        <div className="scale-select">
+          <select
+            className={filterByScale ? '' : 'disabled'}
+            disabled={!filterByScale}
+            name="scale-type"
+            id="scale-type"
+            value={scaleType}
+            onChange={(e) => setScaleType(e.target.value)}
+          >
             <option value="major">Diatônica Maior</option>
             <option value="minor">Diatônica Menor</option>
             <option value="major-pentatonic">Pentatônica Maior</option>
             <option value="minor-pentatonic">Pentatônica Menor</option>
           </select>
-          <select className={filterByScale ? '' : 'disabled'} disabled={!filterByScale} name="" id="">
+          <select
+            className={filterByScale ? '' : 'disabled'}
+            disabled={!filterByScale}
+            name="scale-root"
+            id="scale-root"
+            value={scaleRoot}
+            onChange={(e) => setScaleRoot(e.target.value)}
+          >
             {notesSharps.map((note) => (
               <option value={note} key={note}>
                 {note}

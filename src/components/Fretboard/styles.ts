@@ -24,6 +24,10 @@ export const String = styled.ul`
     border-right: 3px solid #838383ff;
     padding: 8px 0;
 
+    &.wrongNote span {
+      background-color: ${c.grey};
+    }
+
     span {
       background-color: ${c.yellow1};
       border-radius: 50%;

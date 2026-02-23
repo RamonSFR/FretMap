@@ -4,9 +4,17 @@ import * as S from './styles'
 
 interface Props {
   tuning?: string[]
+  filterByScale?: boolean
+  scaleType?: string
+  scaleRoot?: string
 }
 
-const Fretboard = ({ tuning = ['E', 'B', 'G', 'D', 'A', 'E'] }: Props) => {
+const Fretboard = ({
+  tuning = ['E', 'B', 'G', 'D', 'A', 'E'],
+  filterByScale = false,
+  scaleType = 'major',
+  scaleRoot = 'C'
+}: Props) => {
   const fretMarkers = [
     '',
     '•',
@@ -59,16 +67,43 @@ const Fretboard = ({ tuning = ['E', 'B', 'G', 'D', 'A', 'E'] }: Props) => {
     return fretNotes
   }
 
-  console.log(findNotesInFrets('C#', 22, true))
+  const buildMajorScale = (root: string, useSharps = true) => {
+    const notes = useSharps ? notesSharps : notesFlats
+    const rootIdx = notes.indexOf(root)
+    if (rootIdx === -1) return []
+
+    const intervals = [2, 2, 1, 2, 2, 2, 1]
+    const scale: string[] = [notes[rootIdx]]
+    let idx = rootIdx
+    for (const step of intervals.slice(0, 6)) {
+      idx = (idx + step) % notes.length
+      scale.push(notes[idx])
+    }
+    return scale
+  }
+
+  const activeScale =
+    scaleType === 'major' && filterByScale
+      ? buildMajorScale(scaleRoot, true)
+      : null
+
   return (
     <S.Container>
       {tuning.map((openNote, stringIndex) => (
         <S.String key={`string-${stringIndex}`}>
-          {findNotesInFrets(openNote, 22, true).map((note, fretIndex) => (
-            <li key={`s${stringIndex}-f${fretIndex}`}>
-              <span>{note}</span>
-            </li>
-          ))}
+          {findNotesInFrets(openNote, 22, true).map((note, fretIndex) => {
+            const isWrong = Array.isArray(activeScale)
+              ? !activeScale.includes(note)
+              : false
+            return (
+              <li
+                className={isWrong ? 'wrongNote' : ''}
+                key={`s${stringIndex}-f${fretIndex}`}
+              >
+                <span>{note}</span>
+              </li>
+            )
+          })}
         </S.String>
       ))}
 
